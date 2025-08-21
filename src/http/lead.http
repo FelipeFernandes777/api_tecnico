@@ -1,0 +1,33 @@
+### Request para criar nova empresa
+POST http://localhost:3000/empresas/nova
+Content-Type: application/json
+
+{
+  "name": "Empresa teste",
+  "active": true
+}
+
+
+### Request em todas as empresas
+GET http://localhost:3000/empresas/todas
+Accept: application/json
+
+### Request em todas as empresas ativas
+GET http://localhost:3000/empresas/todasAtivas
+Accept: application/json
+
+### Request que busca as empresas por ID
+GET http://localhost:3000/empresas/1
+Accept: application/json
+
+### Request para atualizar uma empresa por ID
+PUT http://localhost:3000/empresas/editar/1;
+Content-Type: application/json
+
+{
+  "name": "Teste de atualização"
+}
+
+### Request para inativar uma empresa
+
+DELETE http://localhost:3000/empresas/inativar/1;
