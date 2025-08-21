@@ -1,6 +1,5 @@
 import {DataTypes} from "sequelize";
 import {sequelize} from "../../config/dbConnection";
-import {EnterpriseModel} from "../enterprise/enterpriseModel";
 
 export const LeadModel = sequelize.define("leads", {
     id: {

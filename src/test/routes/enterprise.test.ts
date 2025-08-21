@@ -1,12 +1,13 @@
 import request from 'supertest';
 import { describe, test, expect } from '@jest/globals';
 import Server from '../../app';
-import db from "../../db/dev.sqlite";
 
 const app = new Server().getSv();
 
-jest.mock('../../db/dev.sqlite', () => ({
-    query: jest.fn()
+jest.mock("../../config/dbConnection", () => ({
+    getDb: jest.fn().mockResolvedValue({
+        query: jest.fn()
+    })
 }));
 
 describe("Test enterprise routes", () => {
@@ -32,13 +33,13 @@ describe("Test enterprise routes", () => {
             message: "Enterprise not found"
         });
     });
-    test("It should a create a new enterprise to the POST METHOD", async () => {
+    test("It should create a new enterprise with POST METHOD", async () => {
         const newEnterprise = {
             name: "Empresa de teste",
             active: true
-        }
+        };
 
-        db.query.mockResolvedValueOnce([{insertId: 1}]);
+
 
         const res = await request(app)
             .post("/empresas/nova")
@@ -53,6 +54,5 @@ describe("Test enterprise routes", () => {
                 id: 1,
                 ...newEnterprise
             }]
-        })
-    })
-});
+        });
+    });});

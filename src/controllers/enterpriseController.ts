@@ -14,7 +14,7 @@ export default class EnterpriseController {
             });
         } catch (error:any) {
             response.status(400).send({
-                status: "alert",
+                status: "error",
                 statusCode: 400,
                 message: error.message
             });
@@ -43,7 +43,7 @@ export default class EnterpriseController {
             });
         } catch (error:any) {
             response.status(400).send({
-                status: "alert",
+                status: "error",
                 statusCode: 400,
                 message: error.message
             });
@@ -62,7 +62,7 @@ export default class EnterpriseController {
             });
         } catch (error:any) {
             response.status(400).send({
-                status: "alert",
+                status: "error",
                 statusCode: 400,
                 message: error.message
             });
@@ -89,7 +89,7 @@ export default class EnterpriseController {
             });
         } catch (error:any) {
             response.status(400).send({
-                status: "alert",
+                status: "error",
                 statusCode: 400,
                 message: error.message
             });
@@ -115,7 +115,7 @@ export default class EnterpriseController {
             });
         } catch (error:any) {
             response.status(400).send({
-                status: "alert",
+                status: "error",
                 statusCode: 400,
                 message: error.message
             });
