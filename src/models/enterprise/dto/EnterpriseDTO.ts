@@ -1,3 +1,4 @@
+import {ILeadDTO} from "../../../services/lead/leadServicesModel";
 
 export interface IEnterpriseDTO {
     id: number
@@ -8,7 +9,7 @@ export interface IEnterpriseDTO {
 export interface IEnterpriseByIdDTO {
     id: number
     name: string
-    leads: undefined[]
+    leads: ILeadDTO[]
     active: boolean
     created_at: string
     updated_at: string

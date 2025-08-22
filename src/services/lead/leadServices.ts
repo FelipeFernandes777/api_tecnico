@@ -45,7 +45,8 @@ export default class LeadServices implements LeadServicesModel{
             }
 
             const newLead = await this.leadModel.create({
-                enterpriseId: enterpriseId,
+                enterprise_id: enterpriseId,
+                fullerName: data.name,
                 ...data
             })
 
@@ -55,7 +56,7 @@ export default class LeadServices implements LeadServicesModel{
             throw error;
         }
     }
-    async listAll(offset:number, limit:number = 20): Promise<Array<ILeadDTO>> {
+    async listAll(offset?:number, limit?:number): Promise<Array<ILeadDTO>> {
         try {
             const result = await this.leadModel.findAll({
                 limit: limit, // Aparece 20

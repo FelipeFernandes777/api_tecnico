@@ -9,7 +9,7 @@ export default class LeadController {
 
             const {offset, limit} = request.body;
 
-            if(!offset || !limit){
+            if(!offset && !limit){
                 response.status(400).send({
                     status: "alert",
                     statusCode: 400,
@@ -65,11 +65,9 @@ export default class LeadController {
     public async createLead(request: Request, response: Response) {
         try {
 
-            const { entepriseId } = request.params;
+            const {name, areaOfInterest, phone, enterpriseId} = request.body;
 
-            const {name, areaOfInterest, phone} = request.body;
-
-            if(!entepriseId){
+            if(!enterpriseId){
                 response.status(400).send({
                     status: "alert",
                     statusCode: 400,
@@ -77,7 +75,7 @@ export default class LeadController {
                 })
             }
 
-            if(!name || !areaOfInterest || !phone){
+            if(!name && !areaOfInterest && !phone){
                 response.status(400).send({
                     status: "alert",
                     statusCode: 400,
@@ -85,7 +83,7 @@ export default class LeadController {
                 })
             }
 
-            const result = await this.services.create(Number(entepriseId), {
+            const result = await this.services.create(Number(enterpriseId), {
                 name,
                 areaOfInterest,
                 phone

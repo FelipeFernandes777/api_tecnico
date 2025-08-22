@@ -6,6 +6,7 @@ import {
 } from "../../models/enterprise/dto/EnterpriseDTO";
 import { EnterpriseModel } from "../../models/enterprise/enterpriseModel";
 import { Model } from "sequelize";
+import {LeadModel} from "../../models/lead/leadModel";
 
 //TODO criar middleware de erros para EnterpriseServices
 export default class EnterpriseServices implements EnterpriseServicesModel {
@@ -22,10 +23,21 @@ export default class EnterpriseServices implements EnterpriseServicesModel {
     }
     private toEnterpriseByIdDTO(model: Model<any, any>): IEnterpriseByIdDTO {
         const raw = model.get();
+
+        const leads = raw.leads ? raw.leads.map((lead: any) => ({
+            id: lead.id,
+            fullerName: lead.fullerName,
+            phone: lead.phone,
+            areaOfInterest: lead.areaOfInterest,
+            enterprise_id: lead.enterprise_id,
+            created_at: lead.created_at,
+            updated_at: lead.updated_at
+        })) : [];
+
         return {
             id: raw.id,
             name: raw.name,
-            leads: [],
+            leads: leads,
             active: raw.active,
             created_at: raw.created_at,
             updated_at: raw.updated_at
@@ -74,7 +86,11 @@ export default class EnterpriseServices implements EnterpriseServicesModel {
     }
     async listById(id: number): Promise<IEnterpriseByIdDTO> {
         try {
-            const enterprise = await this.model.findByPk(id);
+            const enterprise = await this.model.findByPk(id, {
+                include: [
+                    {model: LeadModel, as: "leads" },
+                ]
+            });
             if (!enterprise) throw new Error("Enterprise not found");
             return this.toEnterpriseByIdDTO(enterprise);
         } catch (error: any) {
