@@ -1,4 +1,4 @@
-import {Router,Request, Response } from "express";
+import { Router, Request, Response } from "express";
 import EnterpriseController from "../controllers/enterpriseController";
 
 const enterpriseRouter = Router();
@@ -19,18 +19,40 @@ const enterpriseController = new EnterpriseController();
  *     tags: [Empresas]
  *     responses:
  *       200:
- *         description: Lista de todas as empresas
+ *         description: Lista de empresas
  *         content:
  *           application/json:
  *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   name:
- *                     type: string
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprises:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
+ *                       active:
+ *                         type: boolean
+ *       400:
+ *         description: Erro ao listar empresas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 /**
@@ -42,24 +64,88 @@ const enterpriseController = new EnterpriseController();
  *     responses:
  *       200:
  *         description: Lista de empresas ativas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprises:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: integer
+ *                       name:
+ *                         type: string
+ *                       active:
+ *                         type: boolean
+ *       400:
+ *         description: Erro ao listar empresas ativas
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 /**
  * @swagger
  * /empresas/{id}:
  *   get:
- *     summary: Busca empresa pelo ID
+ *     summary: Busca empresa por ID
  *     tags: [Empresas]
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: integer
  *         required: true
  *         description: ID da empresa
+ *         schema:
+ *           type: integer
  *     responses:
  *       200:
- *         description: Detalhes da empresa
+ *         description: Empresa encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprise:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     active:
+ *                       type: boolean
+ *       400:
+ *         description: Erro ao buscar empresa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 /**
@@ -77,21 +163,57 @@ const enterpriseController = new EnterpriseController();
  *             properties:
  *               name:
  *                 type: string
- *                 example: Empresa X
  *               active:
  *                 type: boolean
- *                 example: true
  *     responses:
  *       201:
  *         description: Empresa criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprise:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     active:
+ *                       type: boolean
+ *       400:
+ *         description: Erro ao criar empresa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 /**
  * @swagger
  * /empresas/editar/{id}:
  *   put:
- *     summary: Edita  uma nova empresa
+ *     summary: Atualiza uma empresa pelo ID
  *     tags: [Empresas]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         description: ID da empresa
+ *         schema:
+ *           type: integer
  *     requestBody:
  *       required: true
  *       content:
@@ -101,31 +223,91 @@ const enterpriseController = new EnterpriseController();
  *             properties:
  *               name:
  *                 type: string
- *                 example: Empresa X
  *               active:
  *                 type: boolean
- *                 example: true
  *     responses:
  *       200:
  *         description: Empresa atualizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprise:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     active:
+ *                       type: boolean
+ *       400:
+ *         description: Erro ao atualizar empresa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 /**
  * @swagger
- * /empresas/deletar/{id}:
- *   post:
- *     summary: Deleta uma nova empresa
+ * /empresas/inativar/{id}:
+ *   delete:
+ *     summary: Deleta (inativa) uma empresa pelo ID
  *     tags: [Empresas]
  *     parameters:
  *       - in: path
  *         name: id
- *         schema:
- *           type: integer
  *         required: true
  *         description: ID da empresa
+ *         schema:
+ *           type: integer
  *     responses:
- *       201:
- *         description: Empresa criada com sucesso
+ *       200:
+ *         description: Empresa deletada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 enterprise:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     name:
+ *                       type: string
+ *                     active:
+ *                       type: boolean
+ *       400:
+ *         description: Erro ao deletar empresa
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 status:
+ *                   type: string
+ *                 statusCode:
+ *                   type: integer
+ *                 message:
+ *                   type: string
  */
 
 enterpriseRouter
@@ -134,8 +316,6 @@ enterpriseRouter
     .get("/empresas/:id", enterpriseController.listForId.bind(enterpriseController))
     .post("/empresas/nova", enterpriseController.createEnterprise.bind(enterpriseController))
     .put("/empresas/editar/:id", enterpriseController.updateEnterprise.bind(enterpriseController))
-    .delete("/empresas/inativar/:id", enterpriseController.deleteEnterprise.bind(enterpriseController))
-
+    .delete("/empresas/inativar/:id", enterpriseController.deleteEnterprise.bind(enterpriseController));
 
 export default enterpriseRouter;
-
