@@ -6,6 +6,8 @@ import {IGetUserByIdDTO} from "../../models/lead/dto/IGetUserByIdDTO";
 import {IUpdateUserDTO} from "../../models/lead/dto/IUpdateUserDTO";
 import {Model} from "sequelize";
 
+import bcrypt from 'bcrypt';
+
 export class UserServices implements UserServicesModel{
     private readonly model = UserModel;
 
@@ -44,7 +46,7 @@ export class UserServices implements UserServicesModel{
 
             const newUser = await this.model.create({
                 email: data.email,
-                password: data.password,
+                password: bcrypt.hash(data.password,10),
                 name: data.name,
                 active: data.active,
             });

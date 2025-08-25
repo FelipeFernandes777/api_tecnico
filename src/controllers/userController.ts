@@ -86,9 +86,30 @@ export default class UserController {
     }
     public async updateUser(request: Request, response: Response): Promise<void> {
         try {
-            const {offset, limit} = request.body;
+            const {id} = request.params;
+            const {name} = request.body;
 
-            const result = await this.service.listAll(offset, limit);
+            if(!id) {
+                response.status(400).send({
+                    status: "alert",
+                    message: "id not found",
+                    statusCode: 400
+                })
+                return;
+            }
+
+
+            if(!name) {
+                response.status(400).send({
+                    status: "alert",
+                    message: "Field name is required",
+                    statusCode: 400
+                })
+
+                return;
+            }
+
+            const result = await this.service.update(Number(id), name);
 
             response.status(200).send({
                 status: "success",
@@ -107,15 +128,22 @@ export default class UserController {
     }
     public async inactiveUser(request: Request, response: Response): Promise<void> {
         try {
-            const {offset, limit} = request.body;
+            const {id} = request.params;
 
-            const result = await this.service.listAll(offset, limit);
+            if(!id) {
+                response.status(400).send({
+                    status: "alert",
+                    message: "id not found",
+                    statusCode: 400
+                })
+                return;
+            }
+
+            await this.service.inactive(Number(id));
 
             response.status(200).send({
                 status: "success",
-                users: {
-                    result
-                },
+                message: "User inactive with success",
                 statusCode: 200
             })
         }catch (error:any) {
