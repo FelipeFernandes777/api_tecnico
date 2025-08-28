@@ -1,5 +1,5 @@
 import {NextFunction, Request,Response} from "express";
-import {verify} from "jsonwebtoken";
+import json from "jsonwebtoken";
 
 export function ensureAuthenticated(req: Request, res: Response, next: NextFunction){
     const authToken = req.headers.authorization;
@@ -11,9 +11,9 @@ export function ensureAuthenticated(req: Request, res: Response, next: NextFunct
     const [bearrer, token] = authToken.split(" ");
 
     try {
-        const secretKey = process.env.SECRET_KEY || "";
+        const secretKey = process.env.SECRET_KEY || "0e4d3251719880a2726d67aaca628af31b24d1e46bb6f922a1846a556d3d1605";
 
-        verify(token, secretKey);
+        json.verify(token, secretKey);
 
         return next();
 

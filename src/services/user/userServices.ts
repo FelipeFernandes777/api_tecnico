@@ -44,9 +44,12 @@ export class UserServices implements UserServicesModel{
                 throw new Error("User already exists");
             }
 
+            const passwordHash = await bcrypt.hash(data.password,10)
+            console.log(passwordHash)
+
             const newUser = await this.model.create({
                 email: data.email,
-                password: bcrypt.hash(data.password,10),
+                password: passwordHash,
                 name: data.name,
                 active: data.active,
             });

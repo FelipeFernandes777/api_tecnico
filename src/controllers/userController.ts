@@ -3,6 +3,7 @@ import { Request, Response } from 'express'
 import {ICreateUserDTO} from "../models/lead/dto/ICreateUserDTO";
 
 export default class UserController {
+
     private readonly service = new UserServices();
 
     public async getAllUsers(request: Request, response: Response): Promise<void> {
@@ -60,14 +61,14 @@ export default class UserController {
         try {
             const { name,active,password,email } = request.body
 
-            const data: ICreateUserDTO = {
-                name,
-                active,
-                password,
-                email
+            if(!name || !active || !password ||!email) {
+                response.status(400).send({
+                    status: "alert",
+                    statusCode: 400,
+                    message: "All fields are required"})
             }
 
-            const result = await this.service.create(data);
+            const result = await this.service.create({name,active,password,email});
 
             response.status(201).send({
                 status: "success",
