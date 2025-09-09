@@ -6,8 +6,8 @@ import {authRouter} from "./authRouter";
 
 const mainRouter = Router();
 
-mainRouter.use(userRouter);
 mainRouter.use(authRouter);
+mainRouter.use(userRouter);
 mainRouter.use(enterpriseRouter);
 mainRouter.use(leadRouter);
 
