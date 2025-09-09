@@ -8,9 +8,9 @@ export default class UserController {
 
     public async getAllUsers(request: Request, response: Response): Promise<void> {
         try {
-            const {offset, limit} = request.body;
+            const {offset, limit} = request.query;
 
-            const result = await this.service.listAll(offset, limit);
+            const result = await this.service.listAll(Number(offset), Number(limit));
 
             response.status(200).send({
                 status: "success",
