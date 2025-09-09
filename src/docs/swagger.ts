@@ -13,7 +13,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `http://10.0.2.153:3000`,
+                url: `https://api.polofaculdades.com.br:5000`,
                 description: 'Servidor de Desenvolvimento'
             }
         ],
