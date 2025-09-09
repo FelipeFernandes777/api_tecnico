@@ -45,7 +45,6 @@ export class UserServices implements UserServicesModel{
             }
 
             const passwordHash = await bcrypt.hash(data.password,10)
-            console.log(passwordHash)
 
             const newUser = await this.model.create({
                 email: data.email,
