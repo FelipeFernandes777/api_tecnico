@@ -1,15 +1,17 @@
-import Router from 'express'
+import { Router } from "express";
 import UserController from "../controllers/userController";
-// import {} from "../middleware/";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 
 const userRouter = Router();
 const userController = new UserController();
 
 userRouter
-    .post("/usuario/criar", userController.createUser.bind(userController))
-    .get("/usuario/listar/todos",userController.getAllUsers.bind(userController))
-    .get("/usuario/listar/:id",userController.getUserById.bind(userController))
-    .put("/usuario/editar/:id",userController.updateUser.bind(userController))
-    .delete("/usuario/inativar/id",userController.inactiveUser.bind(userController))
+    .post("/usuario/criar", userController.createUser.bind(userController));
+
+userRouter
+    .get("/usuario/listar/todos", ensureAuthenticated, userController.getAllUsers.bind(userController))
+    .get("/usuario/listar/:id", ensureAuthenticated, userController.getUserById.bind(userController))
+    .put("/usuario/editar/:id", ensureAuthenticated, userController.updateUser.bind(userController))
+    .delete("/usuario/inativar/:id", ensureAuthenticated, userController.inactiveUser.bind(userController));
 
 export { userRouter };
