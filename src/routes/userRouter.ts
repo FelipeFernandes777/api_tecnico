@@ -6,7 +6,7 @@ const userRouter = Router();
 const userController = new UserController();
 
 userRouter
-    .post("/usuario/criar",userController.createUser.bind(userController))
+    .post("/usuario/criar",ensureAuthenticated, userController.createUser.bind(userController))
     .get("/usuario/listar/todos",ensureAuthenticated,userController.getAllUsers.bind(userController))
     .get("/usuario/listar/:id",ensureAuthenticated,userController.getUserById.bind(userController))
     .put("/usuario/editar/:id",ensureAuthenticated,userController.updateUser.bind(userController))

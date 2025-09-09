@@ -1,5 +1,6 @@
 import { Router, Request, Response } from "express";
 import EnterpriseController from "../controllers/enterpriseController";
+import {ensureAuthenticated} from "../middleware/ensureAuthenticated";
 
 const enterpriseRouter = Router();
 const enterpriseController = new EnterpriseController();
@@ -311,11 +312,11 @@ const enterpriseController = new EnterpriseController();
  */
 
 enterpriseRouter
-    .get("/empresas/todas", enterpriseController.list.bind(enterpriseController))
-    .get("/empresas/todasAtivas", enterpriseController.listWhenActiveIsTrue.bind(enterpriseController))
-    .get("/empresas/:id", enterpriseController.listForId.bind(enterpriseController))
-    .post("/empresas/nova", enterpriseController.createEnterprise.bind(enterpriseController))
-    .put("/empresas/editar/:id", enterpriseController.updateEnterprise.bind(enterpriseController))
-    .delete("/empresas/inativar/:id", enterpriseController.deleteEnterprise.bind(enterpriseController));
+    .get("/empresas/todas", ensureAuthenticated, enterpriseController.list.bind(enterpriseController))
+    .get("/empresas/todasAtivas", ensureAuthenticated, enterpriseController.listWhenActiveIsTrue.bind(enterpriseController))
+    .get("/empresas/:id", ensureAuthenticated, enterpriseController.listForId.bind(enterpriseController))
+    .post("/empresas/nova", ensureAuthenticated, enterpriseController.createEnterprise.bind(enterpriseController))
+    .put("/empresas/editar/:id", ensureAuthenticated, enterpriseController.updateEnterprise.bind(enterpriseController))
+    .delete("/empresas/inativar/:id", ensureAuthenticated, enterpriseController.deleteEnterprise.bind(enterpriseController));
 
 export default enterpriseRouter;

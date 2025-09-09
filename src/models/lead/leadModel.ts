@@ -1,5 +1,5 @@
-import {DataTypes} from "sequelize";
-import {sequelize} from "../../config/dbConnection";
+import { DataTypes } from "sequelize";
+import { sequelize } from "../../config/dbConnection";
 
 export const LeadModel = sequelize.define("leads", {
     id: {
@@ -21,8 +21,7 @@ export const LeadModel = sequelize.define("leads", {
     },
     enterprise_id: {
         type: DataTypes.INTEGER,
-        references: { model: "enterprises", key: "id" },
-        onDelete: "CASCADE",
+        allowNull: false,
     },
 }, {
     tableName: "leads",
