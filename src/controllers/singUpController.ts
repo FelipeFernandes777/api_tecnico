@@ -20,8 +20,6 @@ export default class SingUpController {
 
             const token = await this.service.execute({email,password})
 
-            console.log("token >>>> :", token)
-
             response.status(200).send({
                 status: "success",
                 statusCode: 200,

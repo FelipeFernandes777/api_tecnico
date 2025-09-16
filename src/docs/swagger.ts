@@ -4,7 +4,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 dotenv.config();
 
 const swaggerOptions = {
-    swaggerDefinition: {
+    definition: {   // 🔥 CORREÇÃO AQUI
         openapi: '3.0.0',
         info: {
             title: 'API Técnico',
@@ -47,7 +47,7 @@ const swaggerOptions = {
             }
         }
     },
-    apis: ['src/routes/**/*.ts']
+    apis: ['src/routes/**/*.ts'] // garante que esse path existe
 };
 
 export const swaggerDocs = swaggerJsDoc(swaggerOptions);
