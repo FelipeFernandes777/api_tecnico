@@ -26,8 +26,8 @@ export default class Server {
     }
 
     private routes():void {
-        this.sv.use(mainRouter)
         this.sv.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))
+	this.sv.use(mainRouter)	
     }
 
     public getSv() {
