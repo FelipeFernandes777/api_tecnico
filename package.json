@@ -11,6 +11,7 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@sequelize/postgres": "^7.0.0-alpha.46",
     "@types/sequelize": "^6.12.0",
     "axios": "1.11.0",
     "bcrypt": "^6.0.0",

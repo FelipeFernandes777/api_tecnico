@@ -1,13 +1,13 @@
 import { Sequelize } from "sequelize";
 
 const sequelize = new Sequelize(
-    "rafa5537_tecnico",
-    "rafa5537_tecnico",
-    "5Teo?}!fy%]I",
+    "tecnico",
+    "postgres",
+    "admin",
     {
-        host: "108.179.241.227",
-        port: 3306,
-        dialect: "mysql",
+        host: "31.97.40.222",
+        port: 5432,
+        dialect: "postgres",
         logging: false,
     }
 );
@@ -15,13 +15,13 @@ const sequelize = new Sequelize(
 (async () => {
     try {
         await sequelize.authenticate();
-        console.log("Conectado ao MySQL com sucesso! ✅");
+        console.log("Conectado ao PostgresSQL com sucesso! ✅");
 
         // cuidado: force:true DROPPA tabelas sempre
         await sequelize.sync({ alter: true });
         console.log("Sincronização concluída ✅");
     } catch (error) {
-        console.error("Erro ao conectar ao MySQL: ", error);
+        console.error("Erro ao conectar ao PostgreSQL: ", error);
     }
 })();
 
