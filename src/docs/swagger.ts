@@ -4,7 +4,7 @@ import swaggerJsDoc from 'swagger-jsdoc';
 dotenv.config();
 
 const swaggerOptions = {
-    definition: {   // 🔥 CORREÇÃO AQUI
+    swaggerDefinition: {
         openapi: '3.0.0',
         info: {
             title: 'API Técnico',
@@ -13,7 +13,7 @@ const swaggerOptions = {
         },
         servers: [
             {
-                url: `https://api.polofaculdades.com.br:5000`,
+                url: `api.polofaculdades.com.br`,
                 description: 'Servidor de Desenvolvimento'
             }
         ],
@@ -47,7 +47,7 @@ const swaggerOptions = {
             }
         }
     },
-    apis: ['src/routes/**/*.ts'] // garante que esse path existe
+    apis: ['src/routes/**/*.ts']
 };
 
 export const swaggerDocs = swaggerJsDoc(swaggerOptions);

@@ -5,6 +5,7 @@ const authRouter = Router();
 
 const controller = new SingUpController();
 
+
 /**
  * @swagger
  * tags:
@@ -88,6 +89,8 @@ const controller = new SingUpController();
  *                   type: string
  *                   example: Unexpected error during authentication
  */
+
+
 
 authRouter.post('/login', controller.singUp.bind(controller))
 
